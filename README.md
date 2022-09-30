@@ -10,7 +10,7 @@ $pip install tensorflow
 $pip install matplotlib
 $pip install numpy
 - Finally, you can run the code from terminal using python3 command
-$python3 <filename>.py
+$python3 filename.py
 
 For linux GPU support, read this documentation:
 https://docs.google.com/document/d/1MQ35ZeMZupJQCz4pUmI2Z0j6yD5VaVRWYBtosGNK0p8/edit
