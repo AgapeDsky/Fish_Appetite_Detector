@@ -2,8 +2,13 @@ from tensorflow import keras
 import numpy as np 
 import tensorflow as tf
 
+# set gpu
+# device = tf.config.list_physical_devices('GPU') 
+# tf.config.experimental.set_memory_growth(device[0], True) 
+# tf.config.experimental.set_virtual_device_configuration(device[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)])
+
 # load data
-dataset =  keras.preprocessing.image_dataset_from_directory('Foto/', batch_size=12, label_mode="categorical", image_size=(270, 480))
+dataset =  keras.preprocessing.image_dataset_from_directory('Foto/Akuarium/train', batch_size=6, label_mode="categorical", image_size=(1280, 720))
 
 # for data, labels in dataset:
 #     print(data)
@@ -29,7 +34,7 @@ dataset =  keras.preprocessing.image_dataset_from_directory('Foto/', batch_size=
 # build models
 dense = keras.layers.Dense(units=16)
 
-inputs = keras.Input(shape=(270, 480, 3))
+inputs = keras.Input(shape=(1280, 720, 3))
 
 from tensorflow.keras import layers
 
@@ -39,6 +44,8 @@ x = Rescaling(scale=1.0/255)(inputs)
 
 # Apply some convolution and pooling layers
 x = layers.Conv2D(filters=32, kernel_size=(5, 5), activation="relu")(x)
+x = layers.MaxPooling2D(pool_size=(3, 3))(x)
+x = layers.Conv2D(filters=32, kernel_size=(3, 3), activation="relu")(x)
 x = layers.MaxPooling2D(pool_size=(3, 3))(x)
 x = layers.Conv2D(filters=32, kernel_size=(3, 3), activation="relu")(x)
 x = layers.MaxPooling2D(pool_size=(3, 3))(x)
@@ -63,7 +70,7 @@ model = keras.Model(inputs=inputs, outputs=outputs)
 # model.summary()
 
 # Train model
-model.compile(optimizer='Adam', loss=keras.losses.CategoricalCrossentropy())
+model.compile(optimizer='Nadam', loss=keras.losses.CategoricalCrossentropy())
 model.fit(dataset, epochs=20)
 
 # Save model

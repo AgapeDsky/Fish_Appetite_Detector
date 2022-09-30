@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 import os
 
 # sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
-tf.config.list_physical_devices('GPU')
+# tf.config.list_physical_devices('GPU')
 
-# model = keras.models.load_model('Model/')
+model = keras.models.load_model('Model/')
 
-# dataset =  keras.preprocessing.image_dataset_from_directory('Foto/', batch_size=12, label_mode="categorical", image_size=(270, 480))
+test_dataset =  keras.preprocessing.image_dataset_from_directory('Foto/Akuarium/test', batch_size=6, label_mode="categorical", image_size=(1280, 720))
 
 # # img = keras.preprocessing.image.load_img('Foto/ikan_lapar/ikan_lapar_168.jpg', target_size=(270, 480))
 # # img = keras.preprocessing.image.load_img('Foto/ikan_kenyang/ikan_kenyang_107.jpg', target_size=(270, 480))
@@ -24,5 +24,6 @@ tf.config.list_physical_devices('GPU')
 # print("ikan ", predictions[0][1]*100, " % lapar")
 
 
-# # evaluate
-# # loss = model.evaluate(dataset, batch_size=12)
+# evaluate
+loss = model.evaluate(test_dataset, batch_size=6)
+print(f'accuracy: {100*(1-loss)}%')

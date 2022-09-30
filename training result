@@ -1,0 +1,25 @@
+Training Results
+
+# 1
+architecture:
+conv(5,5) -> relu -> conv(3,3) -> relu -> conv(3,3) -> relu -> conv(3,3) -> relu -> averagepooling -> softmax
+
+compiler:
+- Adam, categorical cross entropy, epoch=20 : 
+	-> final training loss = 6.6%
+	-> test accuracy = 98.019%
+- Adamax, categorical cross entropy, epoch=20 :
+	-> final training loss = 6.4%
+	-> test accuracy = 98.943%
+	-> note: model lebih cepat konvergen dari Adam
+- RMSprop, categorical cross entropy, epoch=20 :
+	-> final training loss = 18.64%
+	-> test accuracy = 98.85%
+	-> note: loss fluktuatif, turun cepat (kira-kira se Adamax) tapi susah konvergen
+- SGD, categorical cross entropy, epoch=20 :
+	-> final training loss = 62.26%
+	-> test accuracy = 49.55%
+- Nadam, categorical cross entropy, epoch=20 :
+	-> final training loss = 6.55%
+	-> test accuracy = 94.94%
+	-> note: turun cepat, tapi melambat eksponensial
