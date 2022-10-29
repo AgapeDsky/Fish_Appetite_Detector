@@ -70,8 +70,29 @@ model = keras.Model(inputs=inputs, outputs=outputs)
 # model.summary()
 
 # Train model
-model.compile(optimizer='Nadam', loss=keras.losses.CategoricalCrossentropy())
-model.fit(dataset, epochs=20)
+model.compile(optimizer='Adamax', loss=keras.losses.CategoricalCrossentropy(), metrics=['accuracy'])
+#model.fit(dataset, epochs=20)
+history = model.fit(dataset, epochs=20)
+
+import matplotlib.pyplot as plt
+# list all data in history
+print(history.history.keys())
+# summarize history for accuracy
+plt.plot(history.history['accuracy'])
+# plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+# summarize history for loss
+plt.plot(history.history['loss'])
+# plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
 
 # Save model
 model.save('Model/')
